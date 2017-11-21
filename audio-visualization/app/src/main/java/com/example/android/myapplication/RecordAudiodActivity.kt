@@ -25,6 +25,18 @@ class RecordAudiodActivity : AppCompatActivity() {
     private var permissionToRecordAccepted = false
     private val permissions = arrayOf(Manifest.permission.RECORD_AUDIO)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        stopButton.isEnabled = false
+        playButton.isEnabled = false
+
+        outputFile = externalCacheDir!!.absolutePath + "/recording.3gp"
+
+        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
+    }
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
                                             grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -82,19 +94,6 @@ class RecordAudiodActivity : AppCompatActivity() {
         }
 
         Toast.makeText(this, "Playing Audio", Toast.LENGTH_SHORT).show()
-    }
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        stopButton.isEnabled = false
-        playButton.isEnabled = false
-
-        outputFile = externalCacheDir!!.absolutePath + "/recording.3gp"
-
-        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
     }
 
 }
